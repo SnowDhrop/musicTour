@@ -2,16 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def getAll(artists = null, styles = null, json = null):
+def getAll(artists = True, styles = True, output = False):
     base_url = 'http://everynoise.com/'
     result = {}
 
     response = requests.get(base_url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    styles = soup.find_all('div', {'class': 'genre scanme'})
+    stylesResult = soup.find_all('div', {'class': 'genre scanme'})
 
-    for style in styles:
+    for style in stylesResult:
         styleNameRaw = style.text
         styleName = styleNameRaw[:-2]
         print(styleName)
@@ -21,21 +21,36 @@ def getAll(artists = null, styles = null, json = null):
 
         responseArtists = requests.get(artistsUrl)
         artistsPage = BeautifulSoup(responseArtists.text, 'html.parser')
-        artists = artistsPage.find_all('div', {'class': 'genre scanme'})
+        artistsResult = artistsPage.find_all('div', {'class': 'genre scanme'})
 
         result[styleName] = {"artists": []}
 
-        for artist in artists:
+        for artist in artistsResult:
             artistNameRaw = artist.text
             artistName = artistNameRaw[:-2]
             # print('Artists:', artist_name)
             result[styleName]["artists"].append(artistName)
 
+            # if (artists == true) 
+
         # print(result)
         # print('Style:', style_name)
 
     print(result)
-    with open('all.json', 'w') as fichier:
-        json.dump(result, fichier)
+
+    if (output == True):
+        name = "all"
+
+        if (artists == True):
+            name += "Artists"
+        
+
+        if (styles == True): 
+            name += "Styles"
+        
+
+        with open('allArtistsStyles.json', 'w') as f:
+            json.dump(result, f)
 
 
+getAll(True, True, True)
