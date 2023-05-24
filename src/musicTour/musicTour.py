@@ -96,34 +96,22 @@ def getAll(styles = True, artists = True, output = False):
     if (output == True):
         name = "all"
 
-        def return_json(style, artist, name, newName, result):
-            if (styles == style and artists == artist):
-                name += newName
-
-                remove_duplicates(result)
-
-                with open(name + ".json", 'w', encoding="utf-8") as f:
-                    json.dump(result, f, ensure_ascii=False)
-
         if (styles == True and artists == False):
             name += "Styles"
-
             remove_duplicates(stylesArr)
 
             with open(name + ".json", 'w', encoding="utf-8") as f:
                     json.dump(stylesArr, f, ensure_ascii=False)
 
-        if (styles == False and artists == True):
+        elif (styles == False and artists == True):
             name += "Artists"
-
             remove_duplicates(artistsArr)
 
             with open(name + ".json", 'w', encoding="utf-8") as f:
                     json.dump(artistsArr, f, ensure_ascii=False)
 
-        if (styles == True and artists == True):
+        elif (styles == True and artists == True):
             name += "StylesArtists"
-
             remove_duplicates(result)
 
             with open(name + ".json", 'w', encoding="utf-8") as f:
@@ -133,10 +121,10 @@ def getAll(styles = True, artists = True, output = False):
         if (styles == True and artists == False) :
             return stylesArr        
         
-        if (styles == False and artists == True) :
+        elif (styles == False and artists == True) :
             return artistsArr    
         
-        if (styles == True and artists == True) :
+        elif (styles == True and artists == True) :
             return result    
 
 getAll(True, True, True)
