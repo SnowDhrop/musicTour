@@ -2,55 +2,88 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def getAll(artists = True, styles = True, output = False):
+def getAll(styles = True, artists = True, output = False):
     base_url = 'http://everynoise.com/'
     result = {}
+
+    artistsArr = []
+    stylesArr = []
 
     response = requests.get(base_url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     stylesResult = soup.find_all('div', {'class': 'genre scanme'})
 
-    for style in stylesResult:
-        styleNameRaw = style.text
+    def remove_duplicates(lst):
+        return list(set(lst))
+
+    def return_result(style, artist, result):
+        if (styles == style and artists == artist) :
+            return result
+        
+    def return_json(style, artist, name, newName, result):
+            if (styles == style and artists == artist):
+                name += newName
+
+                remove_duplicates(result)
+
+                with open(name + ".json", 'w', encoding="utf-8") as f:
+                    json.dump(result, f, ensure_ascii=False)
+        
+
+    # for styleElement in stylesResult:
+    for i, styleElement in enumerate(stylesResult):
+        if i == 6:
+            break
+
+        styleNameRaw = styleElement.text
         styleName = styleNameRaw[:-2]
-        print(styleName)
 
-        artistLink = style.find('a')['href']
-        artistsUrl = base_url + artistLink
 
-        responseArtists = requests.get(artistsUrl)
-        artistsPage = BeautifulSoup(responseArtists.text, 'html.parser')
-        artistsResult = artistsPage.find_all('div', {'class': 'genre scanme'})
+        artistLink = styleElement.find('a')['href']
+        artistsUrl = base_url + artistLink            
 
-        result[styleName] = {"artists": []}
 
-        for artist in artistsResult:
-            artistNameRaw = artist.text
-            artistName = artistNameRaw[:-2]
-            # print('Artists:', artist_name)
-            result[styleName]["artists"].append(artistName)
+        if (artists == True and styles == True):
+            result[styleName] = {"artists": []}
 
-            # if (artists == true) 
+
+        if (styles == True and artists == False):
+            stylesArr.append(styleName)
+        
+
+        if (artists == True):
+            responseArtists = requests.get(artistsUrl)
+            artistsPage = BeautifulSoup(responseArtists.text, 'html.parser')
+            artistsResult = artistsPage.find_all('div', {'class': 'genre scanme'}) 
+
+            for artistElement in artistsResult:
+                artistNameRaw = artistElement.text
+                artistName = artistNameRaw[:-2]
+
+                if (styles == False and artists == True):
+                    artistsArr.append(artistName)
+
+                else:
+                    result[styleName]["artists"].append(artistName)
+
 
         # print(result)
         # print('Style:', style_name)
 
-    print(result)
+    # print(result)
 
     if (output == True):
         name = "all"
 
-        if (artists == True):
-            name += "Artists"
-        
+        return_json(False, True, name, "Artists", artistsArr)
+        return_json(True, False, name, "Styles", stylesArr)
+        return_json(True, True, name, "StylesArtists", result)
 
-        if (styles == True): 
-            name += "Styles"
-        
-
-        with open('allArtistsStyles.json', 'w') as f:
-            json.dump(result, f)
+    else: 
+        return_result(False, True, artistsArr)
+        return_result(True, False, stylesArr)
+        return_result(True, True, result)
 
 
-getAll(True, True, True)
+getAll(False, True, True)
