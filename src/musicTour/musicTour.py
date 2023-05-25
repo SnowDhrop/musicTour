@@ -61,10 +61,12 @@ def getAll(styles = True, artists = True, output = True):
 
 
         if (artists == True and styles == True):
+            print(styleName)
             result[styleName] = {"artists": []}
 
 
         if (styles == True and artists == False):
+            print(styleName)
             stylesArr.append(styleName)
         
 
@@ -78,6 +80,7 @@ def getAll(styles = True, artists = True, output = True):
                 artistName = artistNameRaw[:-2]
 
                 if (styles == False and artists == True):
+                    print(artistName)
                     artistsArr.append(artistName)
 
                 else:
