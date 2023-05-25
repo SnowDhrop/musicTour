@@ -1,4 +1,4 @@
-# Copyright (c) [année] [titulaire du droit d'auteur]
+# Copyright (c) [2023] [Snow Drop]
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
