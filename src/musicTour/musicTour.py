@@ -90,35 +90,43 @@ def getAll(styles = True, artists = True, output = False):
     if (output == True):
         name = "all"
 
-        if (styles == True and artists == False):
-            name += "Styles"
-            remove_duplicates(stylesArr)
+        return_json (True, False, name, "Styles", stylesArr)
+        return_json(False, True, name, "Artists", artistsArr)
+        return_json(True, True, name, "StylesArtists", result)
 
-            with open(name + ".json", 'w', encoding="utf-8") as f:
-                    json.dump(stylesArr, f, ensure_ascii=False)
 
-        elif (styles == False and artists == True):
-            name += "Artists"
-            remove_duplicates(artistsArr)
+        # if (styles == True and artists == False):
+        #     name += "Styles"
+        #     remove_duplicates(stylesArr)
 
-            with open(name + ".json", 'w', encoding="utf-8") as f:
-                    json.dump(artistsArr, f, ensure_ascii=False)
+        #     with open(name + ".json", 'w', encoding="utf-8") as f:
+        #             json.dump(stylesArr, f, ensure_ascii=False)
 
-        elif (styles == True and artists == True):
-            name += "StylesArtists"
-            remove_duplicates(result)
+        # elif (styles == False and artists == True):
+        #     name += "Artists"
+        #     remove_duplicates(artistsArr)
 
-            with open(name + ".json", 'w', encoding="utf-8") as f:
-                    json.dump(result, f, ensure_ascii=False)
+        #     with open(name + ".json", 'w', encoding="utf-8") as f:
+        #             json.dump(artistsArr, f, ensure_ascii=False)
+
+        # elif (styles == True and artists == True):
+        #     name += "StylesArtists"
+        #     remove_duplicates(result)
+
+        #     with open(name + ".json", 'w', encoding="utf-8") as f:
+        #             json.dump(result, f, ensure_ascii=False)
 
     else: 
-        if (styles == True and artists == False) :
-            return stylesArr        
+        return_result(True, False, stylesArr)
+        return_result(False, True, artistsArr)
+        return_result(True, True, result)
+        # if (styles == True and artists == False) :
+        #     return stylesArr        
         
-        elif (styles == False and artists == True) :
-            return artistsArr    
+        # elif (styles == False and artists == True) :
+        #     return artistsArr    
         
-        elif (styles == True and artists == True) :
-            return result    
+        # elif (styles == True and artists == True) :
+        #     return result    
 
 # getAll(True, True, True)
