@@ -22,7 +22,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def getAll(styles = True, artists = True, output = False):
+def getAll(styles = True, artists = True, output = True):
     base_url = 'http://everynoise.com/'
     result = {}
 
@@ -51,11 +51,7 @@ def getAll(styles = True, artists = True, output = False):
                     json.dump(result, f, ensure_ascii=False)
         
 
-    # for styleElement in stylesResult:
-    for i, styleElement in enumerate(stylesResult):
-        if i == 6:
-            break
-
+    for styleElement in stylesResult:
         styleNameRaw = styleElement.text
         styleName = styleNameRaw[:-2]
 
