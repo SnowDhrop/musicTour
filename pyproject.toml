@@ -1,6 +1,6 @@
 [project]
-name = "musicTour_Nathan_Arditti"
-version = "1.1.0"
+name = "musicTour"
+version = "1.2.0"
 authors = [
   { name="Nathan Arditti", email="nath.arditti@yahoo.fr" },
 ]

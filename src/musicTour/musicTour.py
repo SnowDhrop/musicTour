@@ -87,12 +87,6 @@ def getAll(styles = True, artists = True, output = False):
                 else:
                     result[styleName]["artists"].append(artistName)
 
-
-        # print(result)
-        # print('Style:', style_name)
-
-    # print(result)
-
     if (output == True):
         name = "all"
 
@@ -127,4 +121,4 @@ def getAll(styles = True, artists = True, output = False):
         elif (styles == True and artists == True) :
             return result    
 
-getAll(True, True, True)
+# getAll(True, True, True)

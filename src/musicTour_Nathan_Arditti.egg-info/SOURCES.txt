@@ -1,9 +1,0 @@
-LICENSE.txt
-README.md
-pyproject.toml
-src/musicTour/__init__.py
-src/musicTour/musicTour.py
-src/musicTour_Nathan_Arditti.egg-info/PKG-INFO
-src/musicTour_Nathan_Arditti.egg-info/SOURCES.txt
-src/musicTour_Nathan_Arditti.egg-info/dependency_links.txt
-src/musicTour_Nathan_Arditti.egg-info/top_level.txt
